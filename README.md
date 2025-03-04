@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# City Builder Project
 
-## Getting Started
+Welcome to the City Builder project! This application dynamically constructs houses based on user input, offering an intuitive and interactive experience.
 
-First, run the development server:
+## Features
+- Customize Houses: Adjust attributes like color, number of floors, and house name.
+- Manage Houses: Add, duplicate, and remove houses.
+- Display Weather: Show weather icons (sun, rain, snow) with the current temperature based on selected location.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Task Breakdown
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Project Setup
+- Initialize project with Vite/React (or preferred framework)
+- Set up folder structure
+- Install required dependencies
+- Create README file  
+**Estimated Time:** 1 hour
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. House Customization
+- Create House component with basic layout
+- Add props for house attributes (color, floors, name)
+- Implement customization functionality (input fields for attributes)
+- Add validation for input fields  
+**Estimated Time:** 4 hours
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. House Management
+- Implement Add House feature
+- Implement Duplicate House feature
+- Implement Delete House feature
+- Add unique identifiers for houses
+- Manage house list in state  
+**Estimated Time:** 6 hours
 
-## Learn More
+### 4. Weather Display
+- Integrate weather API
+- Add weather icons (sun, rain, snow)
+- Display current temperature based on selected location
+- Allow dynamic updates based on user-selected location  
+**Estimated Time:** 5 hours
 
-To learn more about Next.js, take a look at the following resources:
+### 5. UI/UX Improvements
+- Style components with CSS/Styled Components/Tailwind
+- Add responsive layout
+- Improve user interactions with animations  
+**Estimated Time:** 4 hours
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 6. Performance Optimization
+- Use memoization where necessary
+- Optimize re-renders
+- Code splitting (if applicable)  
+**Estimated Time:** 3 hours
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 7. Testing
+- Write unit tests for core functionalities
+- Test API integration
+- Perform manual testing for user interactions  
+**Estimated Time:** 4 hours
 
-## Deploy on Vercel
+### 8. Documentation
+- Update README with setup instructions
+- Add comments to code
+- Write API usage instructions  
+**Estimated Time:** 2 hours
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Total Estimated Time: 29 hours
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How to Run the Project
+1. Clone the repository.
+2. Install dependencies using `yarn` or `npm install`.
+3. Start the development server with `yarn dev` or `npm run dev`.
+
+## Contributing
+Feel free to fork the project and submit pull requests!
+
+## License
+This project is licensed under the MIT License.
+
