@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/_components/ui/button"
 import {
   Dialog,
@@ -13,24 +13,60 @@ import {
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
 import { useHouseContext } from "@/context/HouseContext"
-import { HouseListProps } from "@/utils/types"
+import { House } from "@/utils/types"
+import { toast } from "sonner"
 
-export function CustomDialog({ open, onClose, title }: { open: boolean, onClose: () => void, title: string }) {
-  const [houseName, setHouseName] = useState("");
-  const [floors, setFloors] = useState(1);
+export function CustomDialog({ 
+  open, 
+  onClose, 
+  title, 
+  defaultValues 
+}: { 
+  open: boolean, 
+  onClose: () => void, 
+  title: string, 
+  defaultValues?: House 
+}) {
+  const [houseName, setHouseName] = useState(defaultValues?.name || "");
+  const [floors, setFloors] = useState(defaultValues?.floors || 1);
   const houseContext = useHouseContext();
+
+  // Update local state when defaultValues changes
+  useEffect(() => {
+    if (defaultValues) {
+      setHouseName(defaultValues.name);
+      setFloors(defaultValues.floors);
+    }
+  }, [defaultValues]);
+
+  if (!houseContext) {
+    throw new Error('useHouseContext must be used within a HouseProvider');
+  }
 
   const { houses, setHouses } = houseContext;
 
-  const handleCreateHouse = () => {
-    const newHouse = {
-      id: houses.length > 0 ? Math.max(...houses.map((h: HouseListProps) => h.id)) + 1 : 1,
-      name: houseName,
-      floors: floors,
-      color: "#FF5733" // Default color
-    };
+  const handleSaveHouse = () => {
+    if (defaultValues) {
+      // Update existing house
+      const updatedHouses = houses.map(house => 
+        house.id === defaultValues.id 
+          ? { ...house, name: houseName, floors: floors, color: defaultValues.color }
+          : house
+      );
+      setHouses(updatedHouses);
+      toast.success("House updated successfully!");
+    } else {
+      // Create new house
+      const newHouse = {
+        id: houses.length > 0 ? Math.max(...houses.map(h => h.id)) + 1 : 1,
+        name: houseName,
+        floors: floors,
+        color: "#FF5733" // Default color
+      };
+      setHouses([...houses, newHouse]);
+      toast.success("House created successfully!");
+    }
     
-    setHouses([...houses, newHouse]);
     setHouseName('');
     setFloors(1);
     onClose();
@@ -73,7 +109,9 @@ export function CustomDialog({ open, onClose, title }: { open: boolean, onClose:
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleCreateHouse} disabled={isNameEmpty}>Create House</Button>
+          <Button onClick={handleSaveHouse} disabled={isNameEmpty}>
+            {defaultValues ? "Update" : "Create"} House
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -11,7 +11,7 @@ import {
 } from "@/_components/ui/card"
 import { Button } from "@/_components/ui/button"
 import { CustomDialog } from "../ui/CustomDialog"
-import House from "./House"
+import HouseDetails from "./HouseDetails"
 
 import { useHouseContext } from "@/context/HouseContext";
 
@@ -55,7 +55,7 @@ const HouseList = () => {
           >
             <div className="flex items-center gap-3">
               <div className="flex-1">
-                <House key={house.id} house={house} />
+                <HouseDetails key={house.id} house={house} />
               </div>
             </div>
           </div>
