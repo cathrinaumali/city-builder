@@ -12,13 +12,13 @@ import {
 } from "@/_components/ui/dialog"
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
-import { generateHouseName } from "@/utils/houseNameGenerator"
 import { useHouseContext } from "@/context/HouseContext"
 
 export function CustomDialog({ open, onClose, title }: { open: boolean, onClose: () => void, title: string }) {
-  const [houseName, setHouseName] = useState(generateHouseName());
+  const [houseName, setHouseName] = useState("");
   const [floors, setFloors] = useState(1);
   const houseContext = useHouseContext();
+
   const { houses, setHouses } = houseContext;
 
   const handleCreateHouse = () => {
@@ -30,8 +30,11 @@ export function CustomDialog({ open, onClose, title }: { open: boolean, onClose:
     };
     
     setHouses([...houses, newHouse]);
+    setHouseName('')
     onClose();
   };
+
+  const isNameEmpty = houseName.trim() === "";
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -49,6 +52,7 @@ export function CustomDialog({ open, onClose, title }: { open: boolean, onClose:
               value={houseName} 
               onChange={(e) => setHouseName(e.target.value)}
               className="col-span-4" 
+              placeholder="Enter house name"
             />
           </div>
           <div className="grid grid-cols-6 items-center gap-4">
@@ -67,7 +71,7 @@ export function CustomDialog({ open, onClose, title }: { open: boolean, onClose:
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleCreateHouse}>Create House</Button>
+          <Button onClick={handleCreateHouse} disabled={isNameEmpty}>Create House</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

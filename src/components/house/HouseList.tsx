@@ -1,6 +1,6 @@
 "use client"
 
-import { Key, useState } from "react";
+import { Key, useState, useRef, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -19,17 +19,51 @@ const HouseList = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const { houses } = useHouseContext();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const prevLengthRef = useRef(houses.length);
+
+  useEffect(() => {
+    if (contentRef.current && houses.length > prevLengthRef.current) {
+      contentRef.current.scrollTo({
+        top: contentRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+    prevLengthRef.current = houses.length;
+  }, [houses]);
+
   return <>
-    <Card>
-      <CardHeader className="bg-gray-100">
+    <Card className="sm:w-[430px] flex flex-col h-full py-0 overflow-hidden gap-0">
+      <CardHeader className="bg-gray-100 border-b py-4">
         <h1 className="text-xl font-medium">Houses List</h1>
       </CardHeader>
-      <CardContent>
-        {houses.map((house: { id: Key | null | undefined; }) => (
-          <House key={house.id} house={house} />
+      <CardContent 
+        ref={contentRef} 
+        className="flex-1 overflow-auto flex flex-col space-y-4 p-4 scroll-smooth"
+      >
+        {houses.map((house: { id: Key | null | undefined; }, index: number) => (
+          <div
+            key={house.id}
+            className={`relative p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer
+              bg-white shadow-sm border-2 ${index === houses.length - 1 && houses.length > prevLengthRef.current ? 'animate-fadeIn' : ''}
+              ${index % 5 === 0 ? 'border-blue-500' : ''}
+              ${index % 5 === 1 ? 'border-rose-500' : ''}
+              ${index % 5 === 2 ? 'border-violet-500' : ''}
+              ${index % 5 === 3 ? 'border-amber-500' : ''}
+              ${index % 5 === 4 ? 'border-emerald-500' : ''}
+            `}
+          >
+            <div className="flex items-center gap-3">
+
+              <div className="flex-1">
+                <House key={house.id} house={house} />
+              </div>
+
+            </div>
+          </div>
         ))}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="border-t flex items-center justify-center h-16">
         <Button variant="outline" onClick={() => setIsOpen(true)}>Build a new house</Button>
       </CardFooter>
     </Card>

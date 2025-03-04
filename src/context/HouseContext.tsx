@@ -14,22 +14,10 @@ const HouseContext = createContext<{
 const _houses: HouseListProps[] = [
   {
     id: 1,
-    name: "Red House",
-    floors: 1,
+    name: "Yellow House",
+    floors: 8,
     color: "#FFD700"
-  },
-  {
-    id: 2,
-    name: "Green House",
-    floors: 2,
-    color: "#FFC0CB"
-  },
-  {
-    id: 3,
-    name: "Blue House",
-    floors: 3,
-    color: "#808080"
-  },
+  }
 ];
 
 export const HouseProvider = ({ children }: { children: React.ReactNode }) => {

@@ -71,7 +71,7 @@ const House = ({ house }: { house: HouseListProps }) => {
           </Button>
         </div>
       </div>
-      <div className="flex items-center gap-16">
+      <div className="flex items-center gap-8">
         <div className="flex items-center gap-2">
           <Label htmlFor="floors">Floors:</Label>
           <Input
@@ -79,7 +79,7 @@ const House = ({ house }: { house: HouseListProps }) => {
             id="floors"
             className="w-16"
             min={1}
-            max={20}
+            max={10}
             value={floors}
             onChange={(e) => {
               const value = Number(e.target.value);
@@ -116,7 +116,7 @@ const House = ({ house }: { house: HouseListProps }) => {
           defaultValue={[house.floors]} 
           value={[floors]} 
           min={1} 
-          max={20} 
+          max={10} 
           step={1} 
           className={cn("w-[60%]")} 
           onValueChange={(value) => handleFloorsChange(value[0])} 

@@ -10,17 +10,20 @@ type HouseProps = {
   houseName?: string;
 };
 
-const House = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProps) => {
+const HouseCanvas = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProps) => {
   const floorHeight = 60;
-  const houseWidth = 120;
+  const houseWidth = 130;
   const defaultHouseName = houseName || `${floors} Floor(s) House`
+  const totalHeight = (floorHeight * floors) + 150; 
+  const canvasWidth = 140;
+  const startX = (canvasWidth - houseWidth) / 2;  
 
   return (
-    <Stage width={300} height={400}>
+    <Stage width={canvasWidth} height={totalHeight} minWidth={canvasWidth} minHeight={400}>
       <Layer>
         {/* Roof */}
         <Line
-          points={[150, 50, 220, 100, 80, 100]}
+          points={[startX + 65, 50, startX + houseWidth, 100, startX, 100]}
           closed
           fill={roofColor}
           stroke="black"
@@ -30,7 +33,7 @@ const House = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProp
           <>
             <Rect
               key={index}
-              x={90}
+              x={startX}
               y={100 + index * floorHeight}
               width={houseWidth}
               height={floorHeight}
@@ -39,17 +42,17 @@ const House = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProp
             />
             {index !== floors - 1 && <>
               <Rect
-                x={110}
+                x={startX + 20}
                 y={100 + index * floorHeight + 12}
-                width={30}
+                width={32}
                 height={30}
                 fill={doorColor}
                 stroke="black"
               />
               <Rect
-                x={160}
+                x={startX + 78}
                 y={100 + index * floorHeight + 12}
-                width={30}
+                width={32}
                 height={30}
                 fill={doorColor}
                 stroke="black"
@@ -61,15 +64,15 @@ const House = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProp
         {/* Door */}
         <>
           <Rect
-            x={110}
+            x={startX + 20}
             y={100 + (floors - 1) * floorHeight + 10}
-            width={30}
+            width={32}
             height={30}
             fill={doorColor}
             stroke="black"
           />
           <Rect
-            x={155}
+            x={startX + 70}
             y={100 + (floors - 1) * floorHeight + 10}
             width={40}
             height={50}
@@ -79,10 +82,17 @@ const House = ({ floors, wallColor, roofColor, doorColor, houseName }: HouseProp
         </>
 
         {/* House Name */}
-        <Text text={defaultHouseName} x={10} y={10} fontSize={20} />
+        <Text 
+          text={defaultHouseName} 
+          x={0} 
+          y={totalHeight - 40} 
+          fontSize={16} 
+          width={140}
+          align="center"
+        />
       </Layer>
     </Stage>
   );
 };
 
-export default House;
+export default HouseCanvas;

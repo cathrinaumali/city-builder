@@ -36,11 +36,8 @@ export default function RootLayout({
       >
         <QueryProvider>
           <HouseProvider>
-            <>
-              <Header />
-              {children}
-              <Footer />
-              </>
+            <Header />
+            {children}
           </HouseProvider>
         </QueryProvider>
       </body>
