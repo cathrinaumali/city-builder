@@ -18,11 +18,11 @@ export default function Home() {
   const { houses } = context;
 
   return (
-    <div id="main-container" className="flex flex-col sm:flex-row gap-4 m-4 min-h-screen">
-      <div id="house-details" className="w-full sm:w-[30%] mt-10 flex justify-center h-[800px]" >
+    <div id="main-container" className="flex flex-col md:flex-row gap-2 m-2 md:m-4 min-h-screen">
+      <div id="house-details" className="w-full md:w-[40%] lg:w-[30%] mt-4 md:mt-10 flex justify-center h-[600px] md:h-[800px] overflow-y-auto" >
         <HouseList />
       </div>
-      <div className="w-full sm:w-[70%] mt-10 h-[800px]">
+      <div className="w-full md:w-[60%] lg:w-[70%] mt-4 md:mt-10 h-[600px] md:h-[800px]">
         <HouseListCanvas houses={houses} />
       </div>
     </div>

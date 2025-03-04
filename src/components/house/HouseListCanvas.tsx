@@ -22,7 +22,7 @@ const HouseListCanvas = ({ houses }: HouseListCanvasProps) => {
   return (
     <div 
       ref={containerRef}
-      className="w-full flex gap-4 items-end flex-col sm:flex-row h-[400px] sm:h-[800px] overflow-auto"
+      className="w-full flex gap-4 items-end flex-row h-[800px] overflow-x-auto"
     >
       {houses.map(({ id, name, floors, color }: HouseListProps) => (
         <House 

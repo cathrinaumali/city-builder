@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import { toast } from 'sonner';
 import { cn } from "@/lib/utils"
 import { Slider } from "@/_components/ui/slider"
 import { Button } from "@/_components/ui/button"
@@ -24,7 +25,7 @@ const House = ({ house }: { house: HouseListProps }) => {
   const [floors, setFloors] = useState(house.floors || 1);
   const [color, setColor] = useState(house.color || colors[0].value);
   const context = useHouseContext();
-
+  
   if (!context) {
     throw new Error('useHouseContext must be used within a HouseProvider');
   }
@@ -51,33 +52,37 @@ const House = ({ house }: { house: HouseListProps }) => {
   const handleDelete = () => {
     const updatedHouses = houses.filter((h: HouseListProps) => h.id !== house.id);
     setHouses(updatedHouses);
+ 
+    toast.success("Deleted!", {
+      description: "House deleted successfully",
+    });
   };
 
   return (
     <div className="flex flex-col gap-2" key={house.id}>
       <div className="flex justify-between items-center">
-        <Label htmlFor="floors">{house.name}</Label>
-        <div className="flex gap-2">
-          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-            <Pencil className="h-5 w-5" />
+        <Label htmlFor="floors" className="truncate max-w-[200px]">{house.name}</Label>
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600 h-8 w-8">
+            <Pencil className="h-4 w-4" />
           </Button>
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 h-8 w-8"
             onClick={handleDelete}
           >
-            <Trash2 className="h-5 w-5" />
+            <Trash2 className="h-4 w-4" />
           </Button>
         </div>
       </div>
-      <div className="flex items-center gap-8">
-        <div className="flex items-center gap-2">
-          <Label htmlFor="floors">Floors:</Label>
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+        <div className="flex items-center gap-1">
+          <Label htmlFor="floors" className="text-sm whitespace-nowrap">Floors:</Label>
           <Input
             type="number"
             id="floors"
-            className="w-16"
+            className="w-12"
             min={1}
             max={10}
             value={floors}
@@ -87,22 +92,22 @@ const House = ({ house }: { house: HouseListProps }) => {
             }}
           />
         </div>
-        <div className="flex items-center gap-2">
-          <Label>Color:</Label>
+        <div className="flex items-center gap-1">
+          <Label className="text-sm whitespace-nowrap">Color:</Label>
           <Select value={color} onValueChange={handleColorChange}>
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[100px]">
               <SelectValue placeholder="Select color" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 {colors.map((color) => (
                   <SelectItem key={color.value} value={color.value}>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <div
-                        className="w-4 h-4 rounded-full"
+                        className="w-3 h-3 rounded-full"
                         style={{ backgroundColor: color.value }}
                       />
-                      {color.name}
+                      <span className="text-sm truncate">{color.name}</span>
                     </div>
                   </SelectItem>
                 ))}
@@ -118,9 +123,9 @@ const House = ({ house }: { house: HouseListProps }) => {
           min={1} 
           max={10} 
           step={1} 
-          className={cn("w-[60%]")} 
+          className={cn("w-full")} 
           onValueChange={(value) => handleFloorsChange(value[0])} 
-          />
+        />
       </div>
     </div>
   )

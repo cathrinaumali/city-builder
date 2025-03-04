@@ -33,7 +33,7 @@ const HouseList = () => {
   }, [houses]);
 
   return <>
-    <Card className="sm:w-[430px] flex flex-col h-full py-0 overflow-hidden gap-0">
+    <Card className="w-full md:w-[400px] lg:w-[430px] flex flex-col h-full py-0 overflow-hidden gap-0">
       <CardHeader className="bg-gray-100 border-b py-4">
         <h1 className="text-xl font-medium">Houses List</h1>
       </CardHeader>
@@ -44,7 +44,7 @@ const HouseList = () => {
         {houses.map((house: { id: Key | null | undefined; }, index: number) => (
           <div
             key={house.id}
-            className={`relative p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer
+            className={`relative p-3 md:p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer
               bg-white shadow-sm border-2 ${index === houses.length - 1 && houses.length > prevLengthRef.current ? 'animate-fadeIn' : ''}
               ${index % 5 === 0 ? 'border-blue-500' : ''}
               ${index % 5 === 1 ? 'border-rose-500' : ''}
@@ -54,11 +54,9 @@ const HouseList = () => {
             `}
           >
             <div className="flex items-center gap-3">
-
               <div className="flex-1">
                 <House key={house.id} house={house} />
               </div>
-
             </div>
           </div>
         ))}

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
 import { useHouseContext } from "@/context/HouseContext"
+import { HouseListProps } from "@/utils/types"
 
 export function CustomDialog({ open, onClose, title }: { open: boolean, onClose: () => void, title: string }) {
   const [houseName, setHouseName] = useState("");
@@ -22,15 +23,16 @@ export function CustomDialog({ open, onClose, title }: { open: boolean, onClose:
   const { houses, setHouses } = houseContext;
 
   const handleCreateHouse = () => {
-     const newHouse = {
-      id: houses.length + 1,
+    const newHouse = {
+      id: houses.length > 0 ? Math.max(...houses.map((h: HouseListProps) => h.id)) + 1 : 1,
       name: houseName,
       floors: floors,
       color: "#FF5733" // Default color
     };
     
     setHouses([...houses, newHouse]);
-    setHouseName('')
+    setHouseName('');
+    setFloors(1);
     onClose();
   };
 
