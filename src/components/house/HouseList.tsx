@@ -14,11 +14,18 @@ import { CustomDialog } from "../ui/CustomDialog"
 import HouseDetails from "./HouseDetails"
 
 import { useHouseContext } from "@/context/HouseContext";
+import type { House } from "@/utils/types";
 
 const HouseList = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const { houses } = useHouseContext();
+  const context = useHouseContext();
+
+  if (!context) {
+    throw new Error('useHouseContext must be used within a HouseProvider');
+  }
+
+  const { houses } = context;
   const contentRef = useRef<HTMLDivElement>(null);
   const prevLengthRef = useRef(houses.length);
 
@@ -41,7 +48,7 @@ const HouseList = () => {
         ref={contentRef} 
         className="flex-1 overflow-auto flex flex-col space-y-4 p-4 scroll-smooth"
       >
-        {houses.map((house: { id: Key | null | undefined; }, index: number) => (
+        {houses.map((house: House, index: number) => (
           <div
             key={house.id}
             className={`relative p-3 md:p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer
@@ -55,7 +62,7 @@ const HouseList = () => {
           >
             <div className="flex items-center gap-3">
               <div className="flex-1">
-                <HouseDetails key={house.id} house={house} />
+                <HouseDetails house={house} />
               </div>
             </div>
           </div>

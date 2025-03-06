@@ -61,7 +61,7 @@ export function CustomDialog({
         id: houses.length > 0 ? Math.max(...houses.map(h => h.id)) + 1 : 1,
         name: houseName,
         floors: floors,
-        color: "#FF5733" // Default color
+        color: "#FFC0CB" // Default color
       };
       setHouses([...houses, newHouse]);
       toast.success("House created successfully!");

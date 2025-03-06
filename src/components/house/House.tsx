@@ -18,7 +18,7 @@ import {
 } from "@/_components/ui/select"
 import { Trash2, Pencil } from "lucide-react"
 import { colors } from "../../utils/constant"
-import { House } from '../../utils/types';
+import type { House } from '../../utils/types';
 import { useHouseContext } from '@/context/HouseContext';
 import { CustomDialog } from "../ui/CustomDialog";
 
